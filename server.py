@@ -9,7 +9,7 @@ app = Flask(__name__)
 service_account_info = json.loads(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS_JSON'))
 storage_client = storage.Client.from_service_account_info(service_account_info)
 
-bucket_name = 'YOUR_BUCKET_NAME'  # Replace this
+bucket_name = 'metrocars'  # Replace this
 
 @app.route('/generate_signed_url', methods=['GET'])
 def generate_signed_url():
