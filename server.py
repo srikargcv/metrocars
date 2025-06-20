@@ -2,12 +2,22 @@ from flask import Flask, request, jsonify
 from google.cloud import storage
 from datetime import timedelta
 from flask_cors import CORS
+import os
+import json
+from google.cloud import storage
+
+# Load the JSON from environment variable
+service_account_info = json.loads(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS_JSON'))
+storage_client = storage.Client.from_service_account_info(service_account_info)
+
 
 app = Flask(__name__)
 CORS(app)  # ✅ To allow Flutter web or any frontend to access this server
 
 # ✅ Load Google Cloud Storage credentials
-storage_client = storage.Client.from_service_account_json('service_account.json')
+# Load the JSON from environment variable
+service_account_info = json.loads(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS_JSON'))
+storage_client = storage.Client.from_service_account_info(service_account_info)
 
 @app.route('/generate_signed_url', methods=['GET'])
 def generate_signed_url():
